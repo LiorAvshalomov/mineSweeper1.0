@@ -16,10 +16,11 @@
     <button onclick="initGame(12)">Hard</button>
     <br><br>
     <button class="restartBtn" onclick="restartGame()">😄</button>
-    <br><br>
+    <br>
     <div class="box">
         <h2 class="timer">Time: <span>0.000</span></h2>
         <h2>Lives: <span class="lives"></span></h2>
+        <span class="hint" onclick="hintClicked()"></span>
         <br><br>
 
         <table border="1" cellpadding="10">
@@ -29,7 +30,7 @@
         </table>
     </div>
 
-
+    <script src="js/hints.js"></script>
     <script src="js/mines.js"></script>
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>

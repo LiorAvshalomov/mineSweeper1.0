@@ -15,6 +15,11 @@ button {
     font-size: 16px;
     margin-left: 10px;
 }
+
+.restartBtn {
+    font-size: 25px;
+    background-color: #363644;
+}
 button:active {
     color: red;
 }

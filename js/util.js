@@ -106,16 +106,6 @@ function renderCell(location, value) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-//* SHOW / HIDE ELEMENT
-function hideElement(selector) {
-  const el = document.querySelector(selector)
-  el.classList.add('hidden')
-}
-
-function showElement(selector) {
-  const el = document.querySelector(selector)
-  el.classList.remove('hidden')
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

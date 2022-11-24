@@ -8,7 +8,7 @@ const EMPTY = ' '
 const HAPPY = '😄'
 const WIN = '😎'
 const LOSE = '🤯'
-const LIVE = '💖'
+// const LIVE = '💖'
 const elBtn = document.querySelector('.restartBtn')
 const elLives = document.querySelector('h2 .lives')
 
@@ -29,7 +29,9 @@ var gLevel = {
     LIVES: 1
 }
 var gLives
-
+var gHints
+var cGHints // copy of gHints Arr'
+var gHintClicked = false
 
 
 
@@ -46,7 +48,9 @@ function initGame(length) {
     gGame.isOn = true
     gLives = gLevel.LIVES
     elLives.innerText = gLives
-
+    gHints = ['🔍', '🔍', '🔍']
+    var hints = gHints.toString()
+    elHint.innerText = hints
 }
 
 
@@ -55,8 +59,13 @@ var currCell = gBoard
 // TODO
 function cellClicked(currCell, i, j) {
     currCell = gBoard[i][j]
-    if (!gTimerInterval) startTimer()
+    if (gHintClicked && gBoard[i][j].isShown) {
+        expandHint(i, j)
+        gHintClicked = false
+        return
+    } else if (gHintClicked && !gBoard[i][j].isShown) return
     if (!gGame.isOn || !currCell.isMarked) return
+    if (!gTimerInterval) startTimer()
     if (currCell.minesAroundCount > 0 && !currCell.isMine) {
         currCell.isShown = false
         renderBoard(gBoard)
@@ -66,7 +75,6 @@ function cellClicked(currCell, i, j) {
         expandShown(gBoard, currCell, i, j)
     }
 
-    // TODO  !Lose
     if (currCell.isMine) {
         if (gLives === 1 || gLives === 2 || gLives === 3) {
             gLives--
@@ -77,7 +85,6 @@ function cellClicked(currCell, i, j) {
             gameLost()
         }
     }
-
     checkGameWon()
 }
 
