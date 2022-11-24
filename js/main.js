@@ -8,7 +8,9 @@ const EMPTY = ' '
 const HAPPY = '😄'
 const WIN = '😎'
 const LOSE = '🤯'
-const LIFE = '💖'
+const LIVE = '💖'
+const elBtn = document.querySelector('.restartBtn')
+const elLives = document.querySelector('h2 .lives')
 
 var gTimerInterval
 var gBoard
@@ -24,14 +26,15 @@ var gGame = {
 var gLevel = {
     SIZE: 4,
     MINES: 2,
-    LIVES: 0
+    LIVES: 1
 }
-var elBtn = document.querySelector('.restartBtn')
+var gLives
+
+
 
 
 
 function initGame(length) {
-    renderLives()
     elBtn.innerText = HAPPY
     gTimerInterval = clearInterval(gTimerInterval)
     var elTime = document.querySelector('.timer span')
@@ -41,6 +44,9 @@ function initGame(length) {
     setMinesNegsCount(gBoard)
     renderBoard(gBoard)
     gGame.isOn = true
+    gLives = gLevel.LIVES
+    elLives.innerText = gLives
+
 }
 
 
@@ -62,11 +68,16 @@ function cellClicked(currCell, i, j) {
 
     // TODO  !Lose
     if (currCell.isMine) {
-        gameLost()
+        if (gLives === 1 || gLives === 2 || gLives === 3) {
+            gLives--
+            elLives.innerText = gLives
+            // console.log('OOPS ITS A MINE!');
+        } else {
+            elLives.innerText = 'You Lost! try again.'
+            gameLost()
+        }
     }
 
-
-    // TODO !WIN
     checkGameWon()
 }
 
@@ -110,6 +121,7 @@ function checkGameWon() {
 
     clearInterval(gTimerInterval)
     elBtn.innerText = WIN
+    elLives.innerText = `You won with ${gLives} lives remaining!`
     gGame.isOn = false
 }
 
@@ -120,8 +132,10 @@ function gameLost() {
         var getMines = gBoard[iIdx][jIdx]
         getMines.isShown = false
         renderBoard(gBoard)
+        gLives = gLevel.LIVES
     }
 
+    gLives = gLives.LIVES
     elBtn.innerText = LOSE
     clearInterval(gTimerInterval)
     gGame.isOn = false
@@ -143,37 +157,28 @@ window.addEventListener('contextmenu', function (e) {
 }, false)
 
 
-function renderLives() {
-    var strHTML = ''
-    if (gGame.livesCount === 0) {
-        strHTML += '0'
-    } else {
-        for (var i = 0; i < gGame.livesCount; i++) {
-            strHTML += '❤'
-        }
-    }
-    const elLives = document.querySelector('h2 .lives')
-    elLives.innerText = strHTML
-}
+
+
+// function renderLives() {
+
+// }
 
 
 // function changeLevel(level) {
 //     if (level === 'easy') {
 //         gLevel.SIZE = 4
 //         gLevel.MINES = 2
-//         // gLevel.LIVES = 1
+//         gLevel.LIVES = 1
 
 //     } else if (level === 'medium') {
 //         gLevel.SIZE = 8
 //         gLevel.MINES = 15
-//         // gLevel.LIVES = 2
+//         gLevel.LIVES = 2
 //     } else if (level === 'hard') {
 //         gLevel.SIZE = 12
 //         gLevel.MINES = 30
-//         // gLevel.LIVES = 3
+//         gLevel.LIVES = 3
 //     }
-
-
 //     restartGame()
 // }
 

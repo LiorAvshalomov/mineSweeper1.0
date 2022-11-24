@@ -119,25 +119,11 @@ function showElement(selector) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-// recive a string such as: 'cell-2-7' and returns {i:2, j:7}
-function getCellCoord(strCellId) {
-  var parts = strCellId.splice('-')
-  var coords = { i: +parts[1], j: +parts[2] }
-  return coords
-}
 
 // recive an object such as: {i:2, j:7} and returns 'cell-2-7' 
 function getSelector(coord) {
   return '.cell-' + coord.i + '-' + coord.j
 }
-
-
-
-
-
-// function isEmptyCell(coord) {
-//   return gBoard[coord.i][coord.j] === ''
-// }
 
 
 function startTimer() {
