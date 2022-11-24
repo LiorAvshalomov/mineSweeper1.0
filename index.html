@@ -12,13 +12,15 @@
 <body onload="initGame(4)">
     <h1>Minesweeper</h1>
 
-    <button onclick="initGame(4)" aria-checked="true">Easy</button>
+    <button onclick="initGame(4)">Easy</button>
     <button onclick="initGame(8)">Medium</button>
     <button onclick="initGame(12)">Hard</button>
     <br>
     <br>
     <button class="restartBtn" onclick="restartGame()">😄</button>
+    <div class="header"></div>
     <h2 class="timer">Time: <span>0.000</span></h2>
+    <h2>Lives: <span class="lives"></span></h2>
     <br>
 
     <table border="1" cellpadding="10">

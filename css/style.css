@@ -25,3 +25,7 @@ td {
 .timer span {
     color: rgb(216, 84, 84);
 }
+
+.lives {
+    color: red;
+}

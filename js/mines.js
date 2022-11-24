@@ -28,11 +28,12 @@ function setMinesNegsCount(board) {
 
 
 function addRandMine(board) {
-    var minesCount
+    var minesCount = gLevel.MINES
+    var livesCount = gLevel.LIVES
 
-    if (board.length === 4) minesCount = 2
-    if (board.length === 8) minesCount = 10
-    if (board.length === 12) minesCount = 20
+    if (board.length === 4) { minesCount = 2, livesCount = 1 }
+    if (board.length === 8) { minesCount = 12, livesCount = 2 }
+    if (board.length === 12) { minesCount = 24, livesCount = 3 }
 
     for (var i = 0; i < minesCount; i++) {
         var getRandI = getRandomInt(0, board.length)

@@ -18,18 +18,20 @@ var gGame = {
     // isOver: false,
     shownCount: 0,
     markedCount: 0,
-    secsPassed: 0
+    secsPassed: 0,
+    livesCount: 1
 }
 var gLevel = {
     SIZE: 4,
     MINES: 2,
-    // LIVES: 1
+    LIVES: 0
 }
+var elBtn = document.querySelector('.restartBtn')
 
 
 
 function initGame(length) {
-    var elBtn = document.querySelector('.restartBtn')
+    renderLives()
     elBtn.innerText = HAPPY
     gTimerInterval = clearInterval(gTimerInterval)
     var elTime = document.querySelector('.timer span')
@@ -39,7 +41,6 @@ function initGame(length) {
     setMinesNegsCount(gBoard)
     renderBoard(gBoard)
     gGame.isOn = true
-
 }
 
 
@@ -62,8 +63,8 @@ function cellClicked(currCell, i, j) {
     // TODO  !Lose
     if (currCell.isMine) {
         gameLost()
-        return
     }
+
 
     // TODO !WIN
     checkGameWon()
@@ -108,7 +109,6 @@ function checkGameWon() {
     }
 
     clearInterval(gTimerInterval)
-    var elBtn = document.querySelector('.restartBtn')
     elBtn.innerText = WIN
     gGame.isOn = false
 }
@@ -121,6 +121,8 @@ function gameLost() {
         getMines.isShown = false
         renderBoard(gBoard)
     }
+
+    elBtn.innerText = LOSE
     clearInterval(gTimerInterval)
     gGame.isOn = false
 }
@@ -128,7 +130,6 @@ function gameLost() {
 
 
 function restartGame() {
-    var elBtn = document.querySelector('.restartBtn')
     elBtn.innerText = HAPPY
 
     initGame(gBoard.length)
@@ -140,6 +141,20 @@ window.addEventListener('contextmenu', function (e) {
     e.preventDefault();
     // console.log(e);
 }, false)
+
+
+function renderLives() {
+    var strHTML = ''
+    if (gGame.livesCount === 0) {
+        strHTML += '0'
+    } else {
+        for (var i = 0; i < gGame.livesCount; i++) {
+            strHTML += '❤'
+        }
+    }
+    const elLives = document.querySelector('h2 .lives')
+    elLives.innerText = strHTML
+}
 
 
 // function changeLevel(level) {
